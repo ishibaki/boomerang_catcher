@@ -138,6 +138,64 @@ run("Close");
 selectWindow("filter1.tif")
 run("Close");
 ```
+
+```python3
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('Results.csv', index_col=0)
+df_ch1 = df[df['Label'].str.startswith('C1')]
+df_ch2 = df[df['Label'].str.startswith('C2')]
+diff = np.array(df_ch1['Slice'].iloc[1:]) - np.array(df_ch1['Slice'].iloc[:-1])
+delimiting_point = np.where(diff < 0)[0][0] + 1
+
+df_ch1_cellbody = df_ch1.iloc[0:delimiting_point, :]
+df_ch1_nuclear = df_ch1.iloc[delimiting_point:, :]
+df_ch2_cellbody = df_ch2.iloc[0:delimiting_point, :]
+df_ch2_nuclear = df_ch2.iloc[delimiting_point:, :]
+
+for nuc_index in df_ch1_nuclear.index:
+    x, y, z= df_ch1_nuclear.loc[nuc_index, ["X", "Y", "Slice"]]
+    area_nuc, mean_nuc = df_ch1_nuclear.loc[nuc_index, ["Area", "Mean"]]
+    same_slice = df_ch1_cellbody[df_ch1_cellbody["Slice"] == z]
+    dx2 = np.square(same_slice["X"] - x)
+    dy2 = np.square(same_slice["Y"] - y)
+    coord_index = np.argmin(np.sqrt(dx2 + dy2))
+    
+    area_cell, mean_cell = df_ch1_cellbody.loc[coord_index, ["Area", "Mean"]]
+    mean_cell = ((area_cell * mean_cell) - (area_nuc * mean_nuc))\
+                /(area_cell - area_nuc)
+    df_ch1_cellbody.loc[coord_index, "Mean"] = mean_cell
+    df_ch1_cellbody.loc[coord_index, "Area"] = area_cell - area_nuc
+
+for nuc_index in df_ch2_nuclear.index:
+    x, y, z= df_ch2_nuclear.loc[nuc_index, ["X", "Y", "Slice"]]
+    area_nuc, mean_nuc = df_ch2_nuclear.loc[nuc_index, ["Area", "Mean"]]
+    same_slice = df_ch2_cellbody[df_ch2_cellbody["Slice"] == z]
+    dx2 = np.square(same_slice["X"] - x)
+    dy2 = np.square(same_slice["Y"] - y)
+    coord_index = np.argmin(np.sqrt(dx2 + dy2))
+    
+    area_cell, mean_cell = df_ch2_cellbody.loc[coord_index, ["Area", "Mean"]]
+    mean_cell = ((area_cell * mean_cell) - (area_nuc * mean_nuc))\
+                /(area_cell - area_nuc)
+    df_ch2_cellbody.loc[coord_index, "Mean"] = mean_cell
+    df_ch2_cellbody.loc[coord_index, "Area"] = area_cell - area_nuc
+    
+ch2_ch1_ratio = np.array(df_ch2_cellbody["Mean"])\
+                /np.array(df_ch1_cellbody["Mean"])
+
+df_ch1_cellbody = df_ch1_cellbody.rename(columns={"Mean": "Ch1_Mean"})
+df_ch1_cellbody["Ch2_Mean"] = np.array(df_ch2_cellbody["Mean"])
+df_ch1_cellbody["Ch2/Ch1-Ratio"] = ch2_ch1_ratio
+
+out = df_ch1_cellbody.loc[:, ['Label', 'Area', 'Ch1_Mean', 'Ch2_Mean',
+                              'Ch2/Ch1-Ratio', 'Min', 'Max', 'X', 'Y',
+                              'XM', 'YM', 'Perim.', 'Major', 'Minor', ' Angle',
+                              'Circ.', 'Slice', 'AR', 'Round', 'Solidity']]
+
+out.to_csv("out.csv")
+```
 }}} -->
 
 <!-- vim: set foldmethod=marker : -->
