@@ -1,7 +1,3 @@
-% Boomerang Catcher
-% Tomoki Ishibashi
-% 2019/09/18
-
 ---
 title: "Boomerang Catcher"
 author:
