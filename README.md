@@ -1,4 +1,4 @@
-![](../img/british_library_boomerang.jpg)
+![](img/british_library_boomerang.jpg)
 
 Boomerang Catcher (BC) is the ImageJ & python program set to analyze FRET in viral infected cells.
 
