@@ -80,11 +80,11 @@ If you have not mounted it yet, [follow this instruction](https://sites.google.c
 1. Subtracting Background to enhance contrast from channel-2 image
 2. Next, enhance contrast until saturating 0.3 % of pixels
 3. Apply Gaussian Blur, sigma equals to 4
-4. Apply threshold by [Minimum method](https://imagej.net/Auto_Threshold#Minimum) to detect cell body without nucleus (Filter 1)
-5. Select the area with 50 - 500 μm^2^
+4. Apply threshold by [Minimum method](https://www.ncbi.nlm.nih.gov/pubmed/5220765) to detect cell body without nucleus (Filter 1)
+5. Select the area with 50 - 500 $\mu$m^2^
 6. Thresholded image of step 4 is duplicated
-7. Apply threshold by [Otsu method](https://imagej.net/Auto_Threshold#Otsu) to detect cell body including nucleus (Filter 2)
-8. Select the area with 50- 800 μm^2^
+7. Apply threshold by [Otsu method](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?&arnumber=4310076) to detect cell body including nucleus (Filter 2)
+8. Select the area with 50- 800 $\mu$m^2^
 8. By multiplying Filter 1 and Filter 2, and generate nuclear mask (Filter 3)
 
 9. Measuring the average intensity of channel-1 and channel-2 by detecting Filter 1 (data calculating cell body including nucleus) (Data 1)
