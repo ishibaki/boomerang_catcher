@@ -1,3 +1,4 @@
+run("Set Measurements...", "area mean min centroid center perimeter fit shape stack display redirect=None decimal=8");
 run("Split Channels");
 selectWindow("C2-img.tif");
 run("Duplicate...", "duplicate");
