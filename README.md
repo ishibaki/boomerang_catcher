@@ -65,7 +65,7 @@ If you have not mounted it yet, [follow this instruction](https://sites.google.c
 
 1. Access to [Boomerang Catcher Python Program](https://colab.research.google.com/drive/1JS3whBHoUTOepOhsDkoEsUR_E-5a_TVP)
 2. Click the `Connect` in the upper right
-3. Click the `>` mark on the left side of the window
+3. Click the `>` sign on the left side of the window
 4. New tab will appear, and click `File`
 5. By clicking `Upload` or dropping the `Results` to the left side tab
 6. After finishing the upload, click the grey triangle mark of the top row
@@ -85,7 +85,7 @@ If you have not mounted it yet, [follow this instruction](https://sites.google.c
 6. Thresholded image of step 4 is duplicated
 7. Apply threshold by [Otsu method](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?&arnumber=4310076) to detect cell body including nucleus (Filter 2)
 8. Select the area with 50- 800 $\mu$m^2^
-8. By multiplying Filter 1 and Filter 2, and generate nuclear mask (Filter 3)
+8. By multiplying the **inverted** Filter 1 and Filter 2, and generate nuclear mask (Filter 3)
 
 9. Measuring the average intensity of channel-1 and channel-2 by detecting Filter 1 (data calculating cell body including nucleus) (Data 1)
 10. Measuring the average intensity of channel-1 and channel-2 by detecting Filter 3 (data calculating only nucleus) (Data 2)
