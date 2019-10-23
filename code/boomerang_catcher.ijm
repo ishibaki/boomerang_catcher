@@ -1,3 +1,4 @@
+rename("img.tif");
 run("Set Measurements...", "area mean min centroid center perimeter fit shape stack display redirect=None decimal=8");
 run("Split Channels");
 selectWindow("C2-img.tif");
@@ -40,5 +41,5 @@ selectWindow("ROI Manager")
 run("Close");
 selectWindow("filter2.tif")
 run("Close");
-selectWindow("filter1.tif")
+selectWindow("Result of filter2.tif")
 run("Close");
