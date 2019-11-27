@@ -4,6 +4,10 @@ Boomerang Catcher (BC) is the ImageJ & python program set to analyze FRET in vir
 
 **[Download latest version](https://github.com/ishibaki/boomerang_catcher/releases/latest)**
 
+# Cite this program
+
+Doysabas, K.C., et al. "ATeam technology for detecting early signs of viral cytopathic effect"
+
 # How to Use
 
 ## Image Preparation
